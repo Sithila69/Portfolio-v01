@@ -83,6 +83,8 @@ body {
   transform: translate(-50%, -50%);
   z-index: 2;
   text-align: center;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -292,6 +294,9 @@ body {
 
   .social-container {
     gap: 1rem;
+  }
+  * {
+    cursor: none;
   }
 }
 
