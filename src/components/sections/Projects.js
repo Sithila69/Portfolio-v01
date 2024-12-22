@@ -24,19 +24,23 @@ const Projects = ({ openProject }) => {
   ];
 
   return (
-    <div>
-      <h2 className="text-3xl mb-8">Projects</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="bg-[#111] p-8 rounded-lg"
-            onClick={() => openProject(project.content)} // Trigger openProject with content
-          >
-            <h3 className="text-xl mb-4">{project.title}</h3>
-            <p>{project.description}</p>
-          </div>
-        ))}
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <div className="max-w-6xl w-full">
+        <h2 className="text-4xl font-bold mb-12 text-[#00ff95]">Projects</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="bg-[#111] p-8 rounded-2xl cursor-pointer transform hover:scale-105 transition-all hover:shadow-xl hover:shadow-[#00ff95]/10"
+              onClick={() => openProject(project.content)}
+            >
+              <h3 className="text-2xl font-semibold mb-4 text-[#00ff95]">
+                {project.title}
+              </h3>
+              <p className="text-gray-300">{project.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

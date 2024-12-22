@@ -8,7 +8,7 @@ body {
   background: #0f0f0f;
   color: #fff;
   font-family: "Space Mono", monospace;
-  overflow: hidden;
+  /* overflow: hidden; */
   cursor: none;
 }
 
@@ -20,6 +20,15 @@ body {
   height: 100%;
   z-index: 1;
   opacity: 0.7;
+}
+
+.fixed-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
 }
 
 .custom-cursor {
@@ -141,6 +150,12 @@ body {
 
 .menu-item:hover::before {
   width: 15px;
+}
+.menu-item.active {
+  color: #00ff95;
+}
+.menu-item:hover {
+  color: #00ff95;
 }
 
 .project-container {
@@ -389,6 +404,29 @@ body {
   .mobile-menu {
     display: none;
   }
+}
+
+.app-container {
+  min-height: 100vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.content-section {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+.content-section {
+  display: block;
+  width: 100%;
+}
+.content-section.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 * {
   margin: 0;

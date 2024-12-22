@@ -1,105 +1,129 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
+import "./index.css";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import Cursor from "./components/Cursor";
 import Canvas from "./components/Canvas";
-import Project from "./components/Project";
+import Projects from "./components/sections/Projects";
+import Skills from "./components/sections/Skills";
 import MobileMenu from "./components/MobileMenu";
 import About from "./components/sections/About";
+import Contact from "./components/sections/Contact";
 
 const App = () => {
-  const [isProjectVisible, setIsProjectVisible] = useState(false);
-  const [currentContent, setCurrentContent] = useState("");
+  const [currentSection, setCurrentSection] = useState("home");
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 990);
+
+  const sectionRefs = {
+    home: useRef(null),
+    about: useRef(null),
+    projects: useRef(null),
+    skills: useRef(null),
+    contact: useRef(null),
+  };
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
     };
 
+    const handleScroll = () => {
+      // Get the current scroll position
+      const scrollPosition = window.scrollY;
+
+      // Check which section is in view
+      Object.entries(sectionRefs).forEach(([section, ref]) => {
+        if (ref.current) {
+          const element = ref.current;
+          const { top, bottom } = element.getBoundingClientRect();
+          const threshold = window.innerHeight / 3;
+
+          if (top <= threshold && bottom >= threshold) {
+            setCurrentSection(section);
+          }
+        }
+      });
+    };
+
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+
+    // Initial scroll check
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const content = {
-    about: `
-            <h2>About Me</h2>
-            <p>I am an enthusiastic and innovative developer with expertise in building web  applications. 
-            With a strong foundation in the MERN stack, and  Java I have worked on a diverse range of projects, 
-            including game development, hospital management systems, and e-commerce platforms. My skills in React, MongoDB and Tailwind CSS enable me to create dynamic, responsive, and user-friendly solutions.</p>
-        `,
-    projects: `
-            <h2>Projects</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                <div style="background: #111; padding: 2rem; border-radius: 10px;">
-                    <h3>Math Shooting Game</h3>
-                    <h4>• Technologies: JavaScript, HTML5, CSS3, MongoDB</h4><br>
-                    <p>• Description: A fun and engaging math-based shooting game where users solve math problems to defeat enemies and progress through levels. 
-                    High scores, playtime, and game details are stored in a MongoDB database for tracking player progress.</p>
-                </div>
-                <div style="background: #111; padding: 2rem; border-radius: 10px;">
-                    <h3>Hospital Management System</h3>
-                    <h4>• Technologies: Java (Servlet), MySQL</h4><br>
-                    <p>• Description: A fully functional hospital management system built using Java Servlet technology. 
-                    The system includes features like patient records management, appointment scheduling, and medical history tracking.</p>
-                </div>
-                <div style="background: #111; padding: 2rem; border-radius: 10px;">
-                    <h3>Contact Us Dashboard</h3>
-                    <h4>• Technologies: React, MongoDB, Node.js</h4><br>
-                    <p>• Description: A contact form submission system where users can submit inquiries, 
-                    which are stored in MongoDB. The dashboard allows admins to manage and respond to these inquiries.</p>
-                </div>
-            </div>
-        `,
-    skills: `
-            <h2>Skills</h2>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
-                <div>
-                    <h3>Tools and Platforms</h3>
-                    <p>VS code • Three.js • Git/GitHub • MySQL</p>
-                </div>
-                <div>
-                    <h3>Languages</h3>
-                    <p>JavaScript • Java • HTML5 & CSS3 • PHP • MongoDB</p>
-                </div>
-            </div>
-        `,
-    contact: `
-            <h2>Contact</h2>
-            <form style="display: grid; gap: 1rem;">
-                <input type="text" placeholder="Name" style="background: #111; border: none; padding: 1rem; color: #fff;">
-                <input type="email" placeholder="Email" style="background: #111; border: none; padding: 1rem; color: #fff;">
-                <textarea placeholder="Message" style="background: #111; border: none; padding: 1rem; color: #fff; height: 150px;"></textarea>
-                <button style="background: #00ff95; color: #000; border: none; padding: 1rem; cursor: pointer;">Send</button>
-            </form>
-        `,
-  };
-
   const handleMenuClick = (section) => {
-    setCurrentContent(content[section]);
-    setIsProjectVisible(true);
+    setCurrentSection(section);
+    const ref = sectionRefs[section];
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
-  const handleCloseProject = () => {
-    setIsProjectVisible(false); // Hide the content when closed
+  const renderSection = (section) => {
+    const isVisible = section === currentSection;
+    let Component;
+
+    switch (section) {
+      case "home":
+        Component = Header;
+        break;
+      case "about":
+        Component = About;
+        break;
+      case "projects":
+        Component = Projects;
+        break;
+      case "skills":
+        Component = Skills;
+        break;
+      case "contact":
+        Component = Contact;
+        break;
+      default:
+        return null;
+    }
+
+    return (
+      <section
+        ref={sectionRefs[section]}
+        className={`content-section ${isVisible ? "visible" : ""}`}
+        id={section}
+      >
+        <Component />
+      </section>
+    );
   };
 
   return (
-    <div>
+    <div className="app-container">
       <Cursor />
-      <Canvas />
-      <Header />
+      <section className="fixed-canvas">
+        <Canvas />
+      </section>
+
       {isMobileView ? (
-        <MobileMenu handleMenuClick={handleMenuClick} />
+        <MobileMenu
+          handleMenuClick={handleMenuClick}
+          currentSection={currentSection}
+        />
       ) : (
-        <Menu handleMenuClick={handleMenuClick} />
+        <Menu
+          handleMenuClick={handleMenuClick}
+          currentSection={currentSection}
+        />
       )}
-      <Project
-        isVisible={isProjectVisible}
-        content={currentContent}
-        closeProject={handleCloseProject}
-      />
+
+      {Object.keys(sectionRefs).map((section) => renderSection(section))}
     </div>
   );
 };
