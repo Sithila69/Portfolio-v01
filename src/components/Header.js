@@ -127,10 +127,10 @@ const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-[#00ff95] transition-colors duration-300
-        relative after:content-[''] after:absolute after:left-0 after:-bottom-1
-        after:w-0 after:h-[2px] after:bg-[#00ff95]
-        after:transition-all after:duration-300
-        hover:after:w-full"
+                relative after:content-[''] after:absolute after:left-0 after:-bottom-1
+                after:w-0 after:h-[2px] after:bg-[#00ff95]
+                after:transition-all after:duration-300
+                hover:after:w-full"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -151,7 +151,7 @@ const Header = () => {
               ease: "easeInOut",
             }}
           >
-            <div className="" onClick={handleScrollDown}>
+            <div className="mb-8" onClick={handleScrollDown}>
               <div className="w-6 h-10 border-2 border-white rounded-full relative cursor-none">
                 <div className="w-1 h-2 bg-white rounded-full absolute left-1/2 top-2 transform -translate-x-1/2 animate-bounce" />
               </div>
