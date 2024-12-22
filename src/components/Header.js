@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Github, Linkedin, Instagram, Twitter } from "lucide-react";
+// import { siGithub, siLinkedin, siInstagram, siX } from "react-icons/si";
+import { SiGithub, SiLinkedin, SiInstagram, SiX } from "react-icons/si";
 
 const Header = () => {
   const [displayText, setDisplayText] = useState("");
@@ -101,37 +102,23 @@ const Header = () => {
           </motion.div>
 
           {/* Social Icons */}
-          <motion.div
-            className="flex gap-6 justify-center"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  staggerChildren: 0.2,
-                },
-              },
-            }}
-          >
+          <motion.div className="flex gap-6 justify-center">
             {[
               {
                 href: "https://github.com/Sithila69",
-                icon: <Github size={24} />,
+                icon: <SiGithub size={24} />,
               },
               {
                 href: "https://www.linkedin.com/in/sithila-bandara-963063225/",
-                icon: <Linkedin size={24} />,
+                icon: <SiLinkedin size={24} />,
               },
               {
-                href: "https://instagram.com/yourusername",
-                icon: <Instagram size={24} />,
+                href: "https://instagram.com/sithila_nethmina_",
+                icon: <SiInstagram size={24} />,
               },
               {
-                href: "https://twitter.com/yourusername",
-                icon: <Twitter size={24} />,
+                href: "https://x.com/KMSBandara42870",
+                icon: <SiX size={24} />,
               },
             ].map((social, index) => (
               <motion.a
@@ -139,7 +126,11 @@ const Header = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-[#00ff95] transition-colors duration-300"
+                className="text-white hover:text-[#00ff95] transition-colors duration-300
+        relative after:content-[''] after:absolute after:left-0 after:-bottom-1
+        after:w-0 after:h-[2px] after:bg-[#00ff95]
+        after:transition-all after:duration-300
+        hover:after:w-full"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
               >
