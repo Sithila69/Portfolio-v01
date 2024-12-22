@@ -77,7 +77,7 @@ const Cursor = () => {
       {trails.map((trail) => (
         <div
           key={trail.id}
-          className="cursor-trail"
+          className="cursor-trail "
           style={{
             left: `${trail.x}px`,
             top: `${trail.y}px`,

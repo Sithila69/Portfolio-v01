@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./App.css";
 import "./index.css";
 import Header from "./components/Header";
@@ -15,23 +15,31 @@ const App = () => {
   const [currentSection, setCurrentSection] = useState("home");
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 990);
 
-  const sectionRefs = {
-    home: useRef(null),
-    about: useRef(null),
-    projects: useRef(null),
-    skills: useRef(null),
-    contact: useRef(null),
-  };
+  // Create refs outside of any callback
+  const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const projectsRef = useRef(null);
+  const skillsRef = useRef(null);
+  const contactRef = useRef(null);
+
+  // Create stable sectionRefs object with useMemo
+  const sectionRefs = useMemo(
+    () => ({
+      home: homeRef,
+      about: aboutRef,
+      projects: projectsRef,
+      skills: skillsRef,
+      contact: contactRef,
+    }),
+    [] // Empty dependency array since the refs themselves never change
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 768);
+      setIsMobileView(window.innerWidth <= 1500);
     };
 
     const handleScroll = () => {
-      // Get the current scroll position
-      const scrollPosition = window.scrollY;
-
       // Check which section is in view
       Object.entries(sectionRefs).forEach(([section, ref]) => {
         if (ref.current) {
@@ -56,7 +64,7 @@ const App = () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [sectionRefs]); // Now sectionRefs is stable and won't cause re-renders
 
   const handleMenuClick = (section) => {
     setCurrentSection(section);
