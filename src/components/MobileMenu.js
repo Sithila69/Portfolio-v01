@@ -28,6 +28,7 @@ const MobileMenu = ({ handleMenuClick }) => {
       {/* Mobile menu */}
       <nav className={`mobile-menu ${isOpen ? "open" : ""}`}>
         <div className="menu-items">
+          <button onClick={() => handleItemClick("home")}>Home</button>
           <button onClick={() => handleItemClick("about")}>About</button>
           <button onClick={() => handleItemClick("projects")}>Projects</button>
           <button onClick={() => handleItemClick("skills")}>Skills</button>
