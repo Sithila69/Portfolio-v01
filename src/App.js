@@ -114,7 +114,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <Cursor />
+      {!isMobileView && <Cursor />}
       <section className="fixed-canvas">
         <Canvas />
       </section>
