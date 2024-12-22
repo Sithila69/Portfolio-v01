@@ -27,12 +27,15 @@ const MobileMenu = ({ handleMenuClick }) => {
 
       {/* Mobile menu */}
       <nav className={`mobile-menu ${isOpen ? "open" : ""}`}>
+        <h3 className="text-xl mt-20 text-center">SITHILA NETHMINA</h3>
         <div className="menu-items">
           <button onClick={() => handleItemClick("home")}>Home</button>
-          <button onClick={() => handleItemClick("about")}>About</button>
-          <button onClick={() => handleItemClick("projects")}>Projects</button>
-          <button onClick={() => handleItemClick("skills")}>Skills</button>
-          <button onClick={() => handleItemClick("contact")}>Contact</button>
+          <button onClick={() => handleItemClick("about")}>About Me</button>
+          <button onClick={() => handleItemClick("projects")}>
+            My Projects
+          </button>
+          <button onClick={() => handleItemClick("skills")}>My Skills</button>
+          <button onClick={() => handleItemClick("contact")}>Contact Me</button>
         </div>
       </nav>
 

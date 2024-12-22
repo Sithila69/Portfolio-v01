@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const Projects = ({ openProject }) => {
   const projects = [
@@ -23,25 +24,74 @@ const Projects = ({ openProject }) => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.2,
+        duration: 0.6,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1 },
+    hover: { scale: 1.05, transition: { duration: 0.3 } },
+    tap: { scale: 0.95 },
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-6xl w-full">
-        <h2 className="text-4xl font-bold mb-12 text-[#00ff95]">Projects</h2>
+      {/* Adding a unique key to force re-mount */}
+      <motion.div
+        key={new Date().getTime()} // Ensures animations re-trigger on section load
+        className="max-w-6xl w-full"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.h2
+          className="text-4xl font-bold mb-12 text-[#00ff95] text-center md:text-left"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          My Projects
+        </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div
+            <motion.div
               key={index}
-              className="bg-[#111] p-8 rounded-2xl cursor-pointer transform hover:scale-105 transition-all hover:shadow-xl hover:shadow-[#00ff95]/10"
+              className="bg-[#111] p-8 rounded-2xl cursor-pointer transform hover:shadow-xl hover:shadow-[#00ff95]/10"
+              variants={cardVariants}
+              whileHover="hover"
+              whileTap="tap"
               onClick={() => openProject(project.content)}
             >
-              <h3 className="text-2xl font-semibold mb-4 text-[#00ff95]">
+              <motion.h3
+                className="text-2xl font-semibold mb-4 text-[#00ff95] text-center md:text-left"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.2 }}
+              >
                 {project.title}
-              </h3>
-              <p className="text-gray-300">{project.description}</p>
-            </div>
+              </motion.h3>
+              <motion.p
+                className="text-gray-300"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.2 + 0.1 }}
+              >
+                {project.description}
+              </motion.p>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
