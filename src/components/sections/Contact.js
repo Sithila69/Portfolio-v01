@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
+import { Copy, Check } from "lucide-react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ const Contact = () => {
     type: "",
     message: "",
   });
+  const [copied, setCopied] = useState(false);
+  const email = "kms123sithila@gmail.com";
 
   // References for animation triggers
   const containerRef = React.useRef(null);
@@ -42,6 +45,16 @@ const Contact = () => {
         ease: "easeOut",
       },
     },
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
   };
 
   // Your existing useEffect for notification
@@ -249,16 +262,29 @@ const Contact = () => {
 
             <div className="grid gap-8">
               {/* Email Section */}
-              <motion.div variants={itemVariants}>
+              <motion.div variants={itemVariants} className="relative">
                 <h4 className="text-[#00ff95] text-lg font-semibold mb-3">
                   Email
                 </h4>
-                <a
-                  href="mailto:kms123sithila@gmail.com"
-                  className="block mb-2 hover:text-[#00ff95] transition-colors"
-                >
-                  kms123sithila@gmail.com
-                </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="mailto:kms123sithila@gmail.com"
+                    className="hover:text-[#00ff95] transition-colors"
+                  >
+                    {email}
+                  </a>
+                  <button
+                    onClick={handleCopy}
+                    className="p-1 rounded-md hover:bg-gray-100 transition-colors"
+                    title="Copy email"
+                  >
+                    {copied ? (
+                      <Check className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
               </motion.div>
 
               {/* Phone Section */}
