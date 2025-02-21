@@ -10,6 +10,7 @@ import Skills from "./components/sections/Skills";
 import MobileMenu from "./components/MobileMenu";
 import About from "./components/sections/About";
 import Contact from "./components/sections/Contact";
+import DownloadResume from "./components/DownloadResume";
 
 const App = () => {
   const [currentSection, setCurrentSection] = useState("home");
@@ -103,6 +104,7 @@ const App = () => {
 
     return (
       <section
+        key={section}
         ref={sectionRefs[section]}
         className={`content-section ${isVisible ? "visible" : ""}`}
         id={section}
@@ -118,6 +120,9 @@ const App = () => {
       <section className="fixed-canvas">
         <Canvas />
       </section>
+
+      {/* Render DownloadResume just once here */}
+      <DownloadResume />
 
       {isMobileView ? (
         <MobileMenu

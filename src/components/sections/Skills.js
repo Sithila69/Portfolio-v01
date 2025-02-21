@@ -28,7 +28,7 @@ const Skills = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
+    <div className="min-h-screen flex items-center justify-center p-8 relative">
       <motion.div
         key={new Date().getTime()} // Ensures animations retrigger when revisiting
         className="max-w-6xl w-full"
@@ -42,56 +42,104 @@ const Skills = () => {
         >
           Skills
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {/* Tools and Platforms Section */}
           <motion.div
-            className="bg-[#111] p-8 rounded-2xl"
+            className="bg-[#111] p-8 rounded-2xl cursor-pointer transform hover:shadow-xl hover:shadow-[#00ff95]/10 relative overflow-hidden group"
             variants={cardVariants}
             whileHover="hover"
             whileTap="tap"
           >
-            <h3 className="text-2xl font-semibold mb-6 text-[#00ff95] text-center md:text-left">
+            {/* Background gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#00ff9522] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <motion.h3
+              className="text-2xl font-semibold mb-6 text-[#00ff95] text-center md:text-left relative z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
               Tools and Platforms
-            </h3>
-            <div className="grid grid-cols-2 gap-4 text-lg text-gray-300">
+            </motion.h3>
+            <div className="grid grid-cols-2 gap-4 text-lg text-gray-300 relative z-10">
               <div>
-                • Three.js
+                • Node.js
                 <br />
                 • Git
-                <br />
-                • Visual Studio Code
-                <br />
+                <br />• VS Code
               </div>
               <div>
                 • Github
                 <br />• MongoDB
+                <br />• Postman
               </div>
             </div>
           </motion.div>
+
           {/* Languages Section */}
           <motion.div
-            className="bg-[#111] p-8 rounded-2xl"
+            className="bg-[#111] p-8 rounded-2xl cursor-pointer transform hover:shadow-xl hover:shadow-[#00ff95]/10 relative overflow-hidden group"
             variants={cardVariants}
             whileHover="hover"
             whileTap="tap"
           >
-            <h3 className="text-2xl font-semibold mb-6 text-[#00ff95] text-center md:text-left">
+            {/* Background gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#00ff9522] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <motion.h3
+              className="text-2xl font-semibold mb-6 text-[#00ff95] text-center md:text-left relative z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
               Languages
-            </h3>
-            <div className="grid grid-cols-2 gap-4 text-lg text-gray-300">
+            </motion.h3>
+            <div className="grid grid-cols-2 gap-4 text-lg text-gray-300 relative z-10">
               <div>
                 • JavaScript
                 <br />
                 • Python
                 <br />
                 • Java
-                <br />
+                <br />• TypeScript
               </div>
               <div>
                 • HTML
                 <br />
                 • CSS
                 <br />• PHP
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Frameworks Section */}
+          <motion.div
+            className="bg-[#111] p-8 rounded-2xl cursor-pointer transform hover:shadow-xl hover:shadow-[#00ff95]/10 relative overflow-hidden group"
+            variants={cardVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
+            {/* Background gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#00ff9522] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <motion.h3
+              className="text-2xl font-semibold mb-6 text-[#00ff95] text-center md:text-left relative z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              Frameworks
+            </motion.h3>
+            <div className="grid grid-cols-2 gap-4 text-lg text-gray-300 relative z-10">
+              <div>
+                • React
+                <br />
+                • Express
+                <br />
+                • Next.js
+                <br />• Tailwind CSS
+              </div>
+              <div>
+                • Bootstrap
+                <br />• Three.js
+                <br />• Next.js
               </div>
             </div>
           </motion.div>
