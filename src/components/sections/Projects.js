@@ -80,7 +80,7 @@ const Projects = () => {
         },
         {
           title: "Live Demo",
-          link: "soon",
+          link: "https://lifeflow-woad.vercel.app",
         },
       ],
     },
